@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('libele');
             $table->decimal('prixunitaire', 8, 2);
-            $table->integer('stock');
+            $table->integer('stock')->default(0);
             $table->foreignId('IdCategorie')->constrained('categories')->onDelete('cascade');
             $table->timestamps();
         });

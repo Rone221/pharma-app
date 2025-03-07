@@ -10,6 +10,7 @@ class Livraison extends Model
     use HasFactory;
 
     protected $fillable = ['IdFournisseur', 'idproduit', 'date', 'quant'];
+    public $timestamps = true;
 
     /**
      * Une livraison appartient à un fournisseur.

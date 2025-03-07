@@ -6,6 +6,13 @@ use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PharmacienController;
+use App\Http\Controllers\ProduitController;
+
+// Route::middleware(['auth', 'role:admin,pharmacien'])->group(function () {
+    //Route::resource('produits', ProduitController::class);
+    Route::get ('produits', [ProduitController::class, 'index'])->name('produits.index');
+
+// });
 
 Route::get('/', function () {
     return view('welcome');

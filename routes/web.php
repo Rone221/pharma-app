@@ -6,6 +6,8 @@ use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PharmacienController;
+use App\Http\Controllers\LivraisonController;
+
 use App\Http\Controllers\ProduitController;
 
 // Route::middleware(['auth', 'role:admin,pharmacien'])->group(function () {
@@ -13,6 +15,7 @@ use App\Http\Controllers\ProduitController;
     Route::get ('produits', [ProduitController::class, 'index'])->name('produits.index');
 
 // });
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,6 +41,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 // Routes accessibles uniquement aux pharmaciens
 Route::middleware(['auth', 'role:pharmacien'])->group(function () {
     Route::resource('/pharmacien', PharmacienController::class);
+});
+
+Route::prefix('livraisons')->group(function () {
+    Route::get('/', [LivraisonController::class, 'index'])->name('livraisons.index'); // Liste des livraisons (Vue Blade)
+    Route::get('/create', [LivraisonController::class, 'create'])->name('livraisons.create'); // Formulaire de création
+    Route::post('/', [LivraisonController::class, 'store'])->name('livraisons.store'); // Ajouter une livraison
+    Route::get('/{id}', [LivraisonController::class, 'show'])->name('livraisons.show'); // Détails d’une livraison
+    Route::get('/{id}/edit', [LivraisonController::class, 'edit'])->name('livraisons.edit'); // Formulaire d’édition
+    Route::put('/{id}', [LivraisonController::class, 'update'])->name('livraisons.update'); // Modifier une livraison
+    Route::delete('/{id}', [LivraisonController::class, 'destroy'])->name('livraisons.destroy'); // Supprimer une livraison
 });
 
 require __DIR__ . '/auth.php';

@@ -10,8 +10,9 @@ use Livewire\Component;
 
 class Profile extends Component
 {
-    public string $name = '';
-
+    public string $nom = '';
+    public string $prenom = '';
+    public string $tel = '';
     public string $email = '';
 
     /**
@@ -19,8 +20,11 @@ class Profile extends Component
      */
     public function mount(): void
     {
-        $this->name = Auth::user()->name;
-        $this->email = Auth::user()->email;
+        $user = Auth::user();
+        $this->nom = $user->nom;
+        $this->prenom = $user->prenom;
+        $this->tel = $user->tel;
+        $this->email = $user->email;
     }
 
     /**
@@ -31,8 +35,9 @@ class Profile extends Component
         $user = Auth::user();
 
         $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255'],
-
+            'nom' => ['required', 'string', 'max:255'],
+            'prenom' => ['required', 'string', 'max:255'],
+            'tel' => ['required', 'string', 'max:15'],
             'email' => [
                 'required',
                 'string',
@@ -43,15 +48,15 @@ class Profile extends Component
             ],
         ]);
 
-        $user->fill($validated);
+        // $user->fill($validated);
 
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
+        // if ($user->isDirty('email')) {
+        //     $user->email_verified_at = null;
+        // }
 
-        $user->save();
+        // $user->save();
 
-        $this->dispatch('profile-updated', name: $user->name);
+        $this->dispatch('profile-updated', nom: $user->nom);
     }
 
     /**
@@ -61,13 +66,13 @@ class Profile extends Component
     {
         $user = Auth::user();
 
-        if ($user->hasVerifiedEmail()) {
-            $this->redirectIntended(default: route('dashboard', absolute: false));
+        // if ($user->hasVerifiedEmail()) {
+        //     $this->redirectIntended(default: route('dashboard', absolute: false));
 
-            return;
-        }
+        //     return;
+        // }
 
-        $user->sendEmailVerificationNotification();
+        // $user->sendEmailVerificationNotification();
 
         Session::flash('status', 'verification-link-sent');
     }

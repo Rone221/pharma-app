@@ -18,6 +18,10 @@ return new class extends Migration
             $table->date('date');
             $table->integer('quant');
             $table->timestamps();
+
+            // Définition des clés étrangères avec les noms actuels
+            $table->foreign('IdFournisseur')->references('IdFounisseur')->on('fournisseurs')->onDelete('cascade');
+            $table->foreign('idproduit')->references('idproduit')->on('produits')->onDelete('cascade');
         });
     }
 

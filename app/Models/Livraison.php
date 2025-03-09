@@ -17,14 +17,15 @@ class Livraison extends Model
      */
     public function fournisseur()
     {
-        return $this->belongsTo(Fournisseur::class, 'IdFournisseur');
+        return $this->belongsTo(Fournisseur::class, 'IdFournisseur', 'id');
     }
+    
 
     /**
      * Une livraison concerne un produit.
      */
     public function produit()
     {
-        return $this->belongsTo(Produit::class, 'idproduit');
+        return $this->belongsTo(Produit::class, 'idproduit', 'id');
     }
 }

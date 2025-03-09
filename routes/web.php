@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PharmacienController;
 use App\Http\Controllers\LivraisonController;
-
+use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\ProduitController;
 
 // Route::middleware(['auth', 'role:admin,pharmacien'])->group(function () {
@@ -16,6 +16,7 @@ use App\Http\Controllers\ProduitController;
 
 // });
 
+Route::resource('fournisseurs', FournisseurController::class);
 
 Route::get('/', function () {
     return view('welcome');

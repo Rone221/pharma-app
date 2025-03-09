@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Livraison;
 use Illuminate\Http\Request;
+use App\Models\Fournisseur;
+use App\Models\Produit;
 
 class LivraisonController extends Controller
 {
@@ -12,8 +14,18 @@ class LivraisonController extends Controller
      */
     public function index()
     {
-        return response()->json(Livraison::with(['produit', 'fournisseur'])->get());
+        $livraisons = Livraison::with(['produit', 'fournisseur'])->get();
+        return view('livraisons.index', compact('livraisons'));
     }
+    
+
+    public function create()
+{
+    $fournisseurs = Fournisseur::all();
+    $produits = Produit::all();
+    return view('livraisons.create', compact('fournisseurs', 'produits'));
+}
+
 
     /**
      * Affiche une livraison spécifique.
@@ -21,11 +33,14 @@ class LivraisonController extends Controller
     public function show($id)
     {
         $livraison = Livraison::with(['produit', 'fournisseur'])->find($id);
+    
         if (!$livraison) {
-            return response()->json(['message' => 'Livraison non trouvée'], 404);
+            return redirect()->route('livraisons.index')->with('error', 'Livraison introuvable.');
         }
-        return response()->json($livraison);
+    
+        return view('livraisons.show', compact('livraison'));
     }
+    
 
     /**
      * Ajoute une nouvelle livraison.
@@ -33,48 +48,68 @@ class LivraisonController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'IdFournisseur' => 'required|exists:fournisseurs,IdFounisseur',
-            'idproduit' => 'required|exists:produits,idproduit',
+            'IdFournisseur' => 'required|exists:fournisseurs,id',
+            'idproduit' => 'required|exists:produits,id',
             'date' => 'required|date',
             'quant' => 'required|integer|min:1',
         ]);
-
-        $livraison = Livraison::create($validated);
-        return response()->json($livraison, 201);
+    
+        Livraison::create($validated);
+    
+        return redirect()->route('livraisons.index')->with('success', 'Livraison ajoutée avec succès !');
     }
+    
 
     /**
      * Met à jour une livraison existante.
      */
+    public function edit($id)
+    {
+        $livraison = Livraison::find($id);
+        $fournisseurs = Fournisseur::all();
+        $produits = Produit::all();
+    
+        if (!$livraison) {
+            return redirect()->route('livraisons.index')->with('error', 'Livraison introuvable.');
+        }
+    
+        return view('livraisons.edit', compact('livraison', 'fournisseurs', 'produits'));
+    }
+    
     public function update(Request $request, $id)
     {
         $livraison = Livraison::find($id);
+    
         if (!$livraison) {
-            return response()->json(['message' => 'Livraison non trouvée'], 404);
+            return redirect()->route('livraisons.index')->with('error', 'Livraison introuvable.');
         }
-
+    
         $validated = $request->validate([
-            'IdFournisseur' => 'exists:fournisseurs,IdFounisseur',
-            'idproduit' => 'exists:produits,idproduit',
-            'date' => 'date',
-            'quant' => 'integer|min:1',
+            'IdFournisseur' => 'required|exists:fournisseurs,id',
+            'idproduit' => 'required|exists:produits,id',
+            'date' => 'required|date',
+            'quant' => 'required|integer|min:1',
         ]);
-
+    
         $livraison->update($validated);
-        return response()->json($livraison);
+    
+        return redirect()->route('livraisons.index')->with('success', 'Livraison mise à jour avec succès !');
     }
-
+    
     /**
      * Supprime une livraison.
      */
     public function destroy($id)
     {
         $livraison = Livraison::find($id);
+    
         if (!$livraison) {
-            return response()->json(['message' => 'Livraison non trouvée'], 404);
+            return redirect()->route('livraisons.index')->with('error', 'Livraison introuvable.');
         }
-
+    
         $livraison->delete();
-        return response()->json(['message' => 'Livraison supprimée avec succès']);
+    
+        return redirect()->route('livraisons.index')->with('success', 'Livraison supprimée avec succès.');
     }
+    
 }

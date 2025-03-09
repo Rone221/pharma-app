@@ -45,13 +45,13 @@ Route::middleware(['auth', 'role:pharmacien'])->group(function () {
 });
 
 Route::prefix('livraisons')->group(function () {
-    Route::get('/', [LivraisonController::class, 'index'])->name('livraisons.index'); // Liste des livraisons (Vue Blade)
+    Route::get('/', [LivraisonController::class, 'index'])->name('livraisons.index'); // Liste des livraisons
     Route::get('/create', [LivraisonController::class, 'create'])->name('livraisons.create'); // Formulaire de création
-    Route::post('/', [LivraisonController::class, 'store'])->name('livraisons.store'); // Ajouter une livraison
-    Route::get('/{id}', [LivraisonController::class, 'show'])->name('livraisons.show'); // Détails d’une livraison
-    Route::get('/{id}/edit', [LivraisonController::class, 'edit'])->name('livraisons.edit'); // Formulaire d’édition
-    Route::put('/{id}', [LivraisonController::class, 'update'])->name('livraisons.update'); // Modifier une livraison
-    Route::delete('/{id}', [LivraisonController::class, 'destroy'])->name('livraisons.destroy'); // Supprimer une livraison
+    Route::post('/', [LivraisonController::class, 'store'])->name('livraisons.store'); // Sauvegarde d'une nouvelle livraison
+    Route::get('/{id}', [LivraisonController::class, 'show'])->name('livraisons.show'); // ✅ Voir une livraison
+    Route::get('/{id}/edit', [LivraisonController::class, 'edit'])->name('livraisons.edit'); // Formulaire de modification
+    Route::put('/{id}', [LivraisonController::class, 'update'])->name('livraisons.update'); // Mise à jour d'une livraison
+    Route::delete('/{id}', [LivraisonController::class, 'destroy'])->name('livraisons.destroy'); // Suppression d'une livraison
 });
 
 require __DIR__ . '/auth.php';

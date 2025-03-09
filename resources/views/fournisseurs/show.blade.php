@@ -1,27 +1,31 @@
-@extends('layouts.app')
+<x-layouts.app.sidebar :heading="__('Détails du Fournisseur')" :subheading="__('Informations complètes sur ce fournisseur')">
+    <flux:main class="p-6">
+        <div class="my-6 w-full space-y-6">
 
-@section('title', 'Détails du Fournisseur')
+            <!-- Alternative à flux:card -->
+            <div class="bg-white dark:bg-gray-800 p-6 shadow-md rounded-lg">
+                <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">
+                    <i class="fas fa-truck text-emerald-500"></i> {{ $fournisseur->Laboratoire }}
+                </h2>
 
-@section('content')
-    <div class="container my-4">
-        <h1 class="mb-4">
-            <i class="fas fa-info-circle"></i> Détails du Fournisseur
-        </h1>
+                <p class="text-gray-700 dark:text-gray-300 mt-4">
+                    <strong class="text-gray-900 dark:text-white">{{ __('Description :') }}</strong>
+                    {{ $fournisseur->descriptionLab }}
+                </p>
 
-        <!-- Carte pour afficher les détails -->
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{ $fournisseur->Laboratoire }}</h5>
-                <p class="card-text"><strong>Description :</strong> {{ $fournisseur->descriptionLab }}</p>
-                <p class="card-text"><strong>Téléphone :</strong> {{ $fournisseur->Telephone }}</p>
+                <p class="text-gray-700 dark:text-gray-300 mt-2">
+                    <strong class="text-gray-900 dark:text-white">{{ __('Téléphone :') }}</strong>
+                    {{ $fournisseur->Telephone }}
+                </p>
+            </div>
+
+            <!-- Bouton Retour -->
+            <div class="flex justify-start">
+                <a href="{{ route('fournisseurs.index') }}"
+                    class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition">
+                    <i class="fas fa-arrow-left"></i> {{ __('Retour') }}
+                </a>
             </div>
         </div>
-
-        <!-- Bouton pour retourner à la liste -->
-        <div class="mt-3">
-            <a href="{{ route('fournisseurs.index') }}" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Retour
-            </a>
-        </div>
-    </div>
-@endsection
+    </flux:main>
+</x-layouts.app.sidebar>

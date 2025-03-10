@@ -7,11 +7,11 @@
                 <p class="text-3xl font-bold text-blue-600">1,250</p>
             </div>
             <div class="p-6 bg-white dark:bg-neutral-800 rounded-xl shadow-lg flex flex-col items-center">
-                <h2 class="text-lg font-semibold">Ventes du jour</h2>
+                <h2 class="text-lg font-semibold">Total livraisons</h2>
                 <p class="text-3xl font-bold text-green-600">325</p>
             </div>
             <div class="p-6 bg-white dark:bg-neutral-800 rounded-xl shadow-lg flex flex-col items-center">
-                <h2 class="text-lg font-semibold">Patients servis</h2>
+                <h2 class="text-lg font-semibold">Total fournisseurs</h2>
                 <p class="text-3xl font-bold text-red-600">98</p>
             </div>
         </div>
@@ -23,7 +23,7 @@
 
         <!-- Section Médicaments en rupture de stock -->
         <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-4">
-            <h2 class="text-lg font-semibold mb-2">Médicaments en rupture de stock</h2>
+            <h2 class="text-lg font-semibold mb-2">Médicaments en stock</h2>
             <ul class="divide-y divide-gray-300 dark:divide-gray-700">
                 <li class="py-2">Paracétamol</li>
                 <li class="py-2">Ibuprofène</li>
@@ -31,14 +31,7 @@
             </ul>
         </div>
 
-        <!-- Médicaments proches de l'expiration -->
-        <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-4">
-            <h2 class="text-lg font-semibold mb-2 text-red-600">Médicaments proches de l’expiration ⚠️</h2>
-            <ul class="divide-y divide-gray-300 dark:divide-gray-700">
-                <li class="py-2">Aspirine - Expire dans 5 jours</li>
-                <li class="py-2">Morphine - Expire dans 10 jours</li>
-            </ul>
-        </div>
+
     </div>
 
     <!-- Script Chart.js -->

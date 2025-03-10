@@ -35,7 +35,7 @@
             <a href="{{ route('home') }}" class="text-3xl font-bold text-gray-900">
                 <span class="inline-block border-2 border-gray-800 rounded px-1 mr-1">
                     <span class="text-emerald-500">Pharm</span>
-                </span>Gestion
+                </span>App
             </a>
             <nav class="hidden md:flex space-x-6">
                 <a href="/" class="text-emerald-500 font-medium">Accueil</a>

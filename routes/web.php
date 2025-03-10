@@ -1,22 +1,25 @@
 <?php
 
+use App\Http\Controllers\CategorieController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\PharmacienController;
+// use App\Http\Controllers\AdminController;
+// use App\Http\Controllers\PharmacienController;
 use App\Http\Controllers\LivraisonController;
 use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\ProduitController;
 
 // Route::middleware(['auth', 'role:admin,pharmacien'])->group(function () {
-    //Route::resource('produits', ProduitController::class);
-    Route::get ('produits', [ProduitController::class, 'index'])->name('produits.index');
+//Route::resource('produits', ProduitController::class);->name('produits.index');
+Route::resource('produits', ProduitController::class);
 
 // });
 
 Route::resource('fournisseurs', FournisseurController::class);
+Route::resource('categories', CategorieController::class);
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,12 +39,12 @@ Route::middleware(['auth'])->group(function () {
 
 // Routes accessibles uniquement aux administrateurs
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('/admin', AdminController::class);
+    // Route::resource('/admin', AdminController::class);
 });
 
 // Routes accessibles uniquement aux pharmaciens
 Route::middleware(['auth', 'role:pharmacien'])->group(function () {
-    Route::resource('/pharmacien', PharmacienController::class);
+    // Route::resource('/pharmacien', PharmacienController::class);
 });
 
 Route::prefix('livraisons')->group(function () {
